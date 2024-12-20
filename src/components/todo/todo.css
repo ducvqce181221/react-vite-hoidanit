@@ -43,13 +43,32 @@
     background-color: ghostwhite;
     text-align: left;
     width: 600px;
-    height: 200px;
     margin: 0 auto;
 }
 
-.todo-data div {
-    font-size: 18px;
-    margin: 15px 0 0 20px;
+.todo-item {
+    margin: 15px 20px 0 20px;
+}
+
+.todo-item-name,
+.todo-item-delete {
+    font-family: Arial;
+}
+
+.todo-item-delete {
+    color: white;
+    background-color: rgb(255, 78, 78);
+    border: 2px solid red;
+    border-radius: 3px;
+}
+
+.todo-item-delete:active {
+    background-color: rgb(225, 0, 0);
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between;
 }
 
 .todo-image {
