@@ -7,9 +7,9 @@ import { useState } from "react";
 
 const App = () => {
 
-  const [todoList, setList] = useState([
-    {id: 1, name: "Learning React"},
-    {id: 2, name: "Watching youtube"}
+  const [todoList, setTodoList] = useState([
+    { id: 1, name: "Learning React" },
+    { id: 2, name: "Watching youtube" }
   ])
 
   const name = "Eric";
@@ -19,8 +19,17 @@ const App = () => {
     country: "vietnam"
   }
 
+  const randomIntFromInterval = (min, max) => { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
   const addNewTodo = (name) => {
-    alert(`call me ${name}`);
+    const newTodo = {
+      id: randomIntFromInterval(1, 100000),
+      name
+    }
+
+    setTodoList([...todoList, newTodo])
   }
 
   return (
