@@ -38,16 +38,20 @@
 }
 
 .todo-data {
-    border: 2px solid rgb(185, 185, 185);
+    border: 2px solid rgb(204, 204, 204);
     border-radius: 6px;
     background-color: ghostwhite;
     text-align: left;
     width: 600px;
+    min-height: 120px;
     margin: 0 auto;
+    padding-bottom: 15px;
 }
 
 .todo-item {
     margin: 15px 20px 0 20px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .todo-item-name,
@@ -64,11 +68,6 @@
 
 .todo-item-delete:active {
     background-color: rgb(225, 0, 0);
-}
-
-.todo-item {
-    display: flex;
-    justify-content: space-between;
 }
 
 .todo-image {
