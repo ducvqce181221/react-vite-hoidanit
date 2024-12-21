@@ -21,7 +21,6 @@ const App = () => {
       id: randomIntFromInterval(1, 100000),
       name
     }
-
     setTodoList([...todoList, newTodo])
   }
 
@@ -31,12 +30,17 @@ const App = () => {
       <TodoNew
         addNewTodo={addNewTodo}
       />
-      <TodoData
-        todoList={todoList}
-      />
-      <div className="todo-image">
-        <img src={reactLogo} className="logo react" />
-      </div>
+
+      {todoList.length > 0 ?
+        <TodoData
+          todoList={todoList}
+        />
+        :
+        <div className="todo-image">
+          <img src={reactLogo} className="logo react" />
+        </div>
+      }
+
     </div>
   )
 }
