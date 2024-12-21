@@ -33,7 +33,7 @@
     cursor: pointer;
 }
 
-.todo-new button:active {
+.todo-new button:hover {
     background-color: rgb(231, 77, 0);
 }
 
@@ -63,9 +63,10 @@
     background-color: rgb(255, 78, 78);
     border: 2px solid red;
     border-radius: 3px;
+    cursor: pointer;
 }
 
-.todo-item-delete:active {
+.todo-item-delete:hover {
     background-color: rgb(225, 0, 0);
 }
 
