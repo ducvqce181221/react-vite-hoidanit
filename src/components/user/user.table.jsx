@@ -4,10 +4,7 @@ import { fetchAllUserAPI } from '../../services/api.service';
 
 
 const UserTable = () => {
-    const [dataUser, setDataUser] = useState([
-        { _id: "quangduc", fullName: 20, email: "kiengiang" },
-        { _id: "quangduc2", fullName: 30, email: "kiengiang3" }
-    ]);
+    const [dataUser, setDataUser] = useState([]);
 
     useEffect(() => {
         console.log("check update render 111");
