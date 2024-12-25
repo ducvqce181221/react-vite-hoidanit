@@ -15,8 +15,13 @@ const UserForm = () => {
 
         if (res.data) {
             notification.success({
-                message: `create user`,
+                message: "create user",
                 description: "create user successfully!",
+            });
+        } else {
+            notification.error({
+                message: "create user",
+                description: JSON.stringify(res.message),
             });
         }
 
