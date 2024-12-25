@@ -3,7 +3,8 @@ import { useState } from "react";
 import { createUserAPI } from "../../services/api.service";
 
 
-const UserForm = () => {
+const UserForm = (props) => {
+    const { loadUser } = props;
 
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
@@ -20,19 +21,23 @@ const UserForm = () => {
                 message: "create user",
                 description: "create user successfully!",
             });
-            setIsModalOpen(false);
+            resetAndCloseModal();
+            await loadUser();
         } else {
             notification.error({
                 message: "create user",
                 description: JSON.stringify(res.message),
             });
         }
-
-        // setFullName("");
-        // setEmail("");
-        // setPassword("");
-        // setPhoneNumber("");
     };
+
+    const resetAndCloseModal = () => {
+        setIsModalOpen(false);
+        setFullName("");
+        setEmail("");
+        setPassword("");
+        setPhoneNumber("");
+    }
 
     return (
         <div className="user-form" style={{ margin: "20px 0" }}>
@@ -46,7 +51,7 @@ const UserForm = () => {
             <Modal title="Create user"
                 open={isModalOpen}
                 onOk={handleSubmitBn}
-                onCancel={() => setIsModalOpen(false)}
+                onCancel={resetAndCloseModal}
                 maskClosable={false}
                 okText={"Create"}
             >
