@@ -1,19 +1,25 @@
 // import axios from 'axios';
 import axios from "./axios.customize";
 
-const createUserAPI = (fullName, email, password, phoneNumber) => {
+const createUserAPI = (fullName, email, password, phone) => {
     const URL_BACKEND = "/api/v1/user";
     const data = {
         fullName: fullName,
         email: email,
         password: password,
-        phone: phoneNumber
+        phone: phone
     }
     return axios.post(URL_BACKEND, data);
 }
 
-const updateUserAPI = () => {
-
+const updateUserAPI = (_id, fullName, phone) => {
+    const URL_BACKEND = "/api/v1/user";
+    const data = {
+        _id: _id,
+        fullName: fullName,
+        phone: phone
+    }
+    return axios.put(URL_BACKEND, data);
 }
 
 const fetchAllUserAPI = () => {

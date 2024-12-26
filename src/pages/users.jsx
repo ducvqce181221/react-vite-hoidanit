@@ -19,7 +19,10 @@ const UsersPage = () => {
         <>
             <div style={{ padding: "0 20px" }}>
                 <UserForm loadUser={loadUser} />
-                <UserTable dataUser={dataUser} />
+                <UserTable
+                    dataUser={dataUser}
+                    loadUser={loadUser}
+                />
             </div>
         </>
 
