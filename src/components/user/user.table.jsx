@@ -18,19 +18,19 @@ const UserTable = (props) => {
     const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
 
-    const handleDeleteByUserId = (id) => {
+    const handleDeleteByUserId = (id, name) => {
         setConfirmLoading(true);
         setTimeout(async () => {
             const res = await deleteUserAPI(id);
             if (res.data) {
                 notification.success({
                     message: "Delete user",
-                    description: "Delete user successfully!",
+                    description: `Delete ${name} successfully!`,
                 });
                 await loadUser();
             } else {
                 notification.error({
-                    message: "Delete user fail!",
+                    message: `Delete ${name} fail!`,
                     description: JSON.stringify(res.message),
                 });
             }
@@ -75,9 +75,9 @@ const UserTable = (props) => {
                     />
                     <Popconfirm
                         title="Delete user"
-                        description="Are you sure delete this user?"
+                        description={`Are you sure delete ${record.fullName}?`}
                         open={open === record._id}
-                        onConfirm={() => handleDeleteByUserId(record._id)}
+                        onConfirm={() => handleDeleteByUserId(record._id, record.fullName)}
                         okButtonProps={{
                             loading: confirmLoading,
                         }}
