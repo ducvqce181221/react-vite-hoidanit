@@ -1,13 +1,36 @@
 import { Button, Drawer } from 'antd';
+import { useState } from 'react';
 
 const ViewUserDetail = (props) => {
 
     const { dataDetail, setDataDetail, openDrawer, setOpenDrawer } = props;
+    const [selectedFile, setSelectedFile] = useState(null)
+    const [preview, setPreview] = useState(null)
 
     const resetAndCloseDrawer = () => {
-        setOpenDrawer(false)
-        setTimeout(() => { setDataDetail("") }, 200)
+        setOpenDrawer(false);
+        setTimeout(() => {
+            setDataDetail("");
+            setSelectedFile(null);
+            setPreview(null);
+        }, 200);
     }
+
+    const handleOnChangeFile = (event) => {
+        if (!event.target.files || event.target.files.length === 0) {
+            setSelectedFile(null);
+            setPreview(null);
+            return;
+        }
+        // I've kept this example simple by using the first image instead of multiple
+        const file = event.target.files[0];
+        if (file) {
+            setSelectedFile(file);
+            setPreview(URL.createObjectURL(file));
+        }
+
+    }
+    console.log(">>> check file: ", preview);
 
     return (
         <Drawer title="Basic Drawer"
@@ -34,17 +57,26 @@ const ViewUserDetail = (props) => {
                         <label htmlFor='btnUpload' style={{
                             cursor: "pointer",
                             background: "orange",
-                            padding: "8px 11px",
+                            padding: "8px 8px",
                             borderRadius: "5px",
                         }}
                         >
                             Upload Avatar
                         </label>
-                        <input type="file" hidden id='btnUpload' />
+                        <input type="file" hidden id='btnUpload'
+                            onChange={(event) => handleOnChangeFile(event)}
+                        />
                     </div>
+                    {preview &&
+                        <>
+                            <p style={{ marginTop: "15px" }}>Preview</p>
+                            <img style={{ border: "1px solid #ccc", width: "50%", marginTop: "5px" }}
+                                src={preview}
+                            />
+                        </>
 
+                    }
                 </div>
-
             </div>
         </Drawer>
     );
