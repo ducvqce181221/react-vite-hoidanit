@@ -1,9 +1,10 @@
-import { Button, Drawer } from 'antd';
+import { Button, Drawer, notification } from 'antd';
 import { useState } from 'react';
+import { handleUploadFile, updateUserAvatarAPI } from '../../services/api.service';
 
 const ViewUserDetail = (props) => {
 
-    const { dataDetail, setDataDetail, openDrawer, setOpenDrawer } = props;
+    const { dataDetail, setDataDetail, openDrawer, setOpenDrawer, loadUser } = props;
     const [selectedFile, setSelectedFile] = useState(null)
     const [preview, setPreview] = useState(null)
 
@@ -28,9 +29,41 @@ const ViewUserDetail = (props) => {
             setSelectedFile(file);
             setPreview(URL.createObjectURL(file));
         }
-
     }
-    console.log(">>> check file: ", preview);
+
+    const handleUpdateAvatar = async () => {
+        const resUpload = await handleUploadFile(selectedFile, "avatar");
+        if (resUpload.data) {
+            const newAvatar = resUpload.data.fileUploaded;
+            const resUpdateAvatar = await updateUserAvatarAPI(
+                dataDetail._id,
+                newAvatar,
+                dataDetail.fullName,
+                dataDetail.phone
+            );
+
+            if (resUpdateAvatar.data) {
+                resetAndCloseDrawer();
+                await loadUser();
+                notification.success({
+                    message: "Update user avatar",
+                    description: "Update avatar successfully!"
+                });
+
+            } else {
+                notification.error({
+                    message: "Error update avatar",
+                    description: JSON.stringify(resUpdateAvatar.message)
+                })
+            }
+        } else {
+            notification.error({
+                message: "Error upload file!",
+                description: JSON.stringify(resUpload.message)
+            })
+        }
+        console.log("check resUpload: ", resUpload);
+    }
 
     return (
         <Drawer title="Basic Drawer"
@@ -69,10 +102,17 @@ const ViewUserDetail = (props) => {
                     </div>
                     {preview &&
                         <>
-                            <p style={{ marginTop: "15px" }}>Preview</p>
-                            <img style={{ border: "1px solid #ccc", width: "50%", marginTop: "5px" }}
-                                src={preview}
-                            />
+                            <div>
+                                <p style={{ marginTop: "15px" }}>Preview</p>
+                                <img style={{ width: "50%", marginTop: "5px" }}
+                                    src={preview}
+                                />
+                            </div>
+                            <Button type='primary'
+                                onClick={handleUpdateAvatar}
+                            >
+                                Save
+                            </Button>
                         </>
 
                     }

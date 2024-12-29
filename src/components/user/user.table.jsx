@@ -114,6 +114,7 @@ const UserTable = (props) => {
                 setDataDetail={setDataDetail}
                 setOpenDrawer={setOpenDrawer}
                 openDrawer={openDrawer}
+                loadUser={loadUser}
             />
 
         </>
