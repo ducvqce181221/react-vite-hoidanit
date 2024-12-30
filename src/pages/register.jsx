@@ -1,6 +1,6 @@
-import { Button, Col, Form, Input, notification, Row } from "antd";
+import { Button, Col, Divider, Form, Input, notification, Row } from "antd";
 import { registerUserAPI } from "../services/api.service";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
     const [form] = Form.useForm();
@@ -39,6 +39,7 @@ const RegisterPage = () => {
                 style={{ margin: "30px" }}
             // onFinishFailed={onFinishFailed}
             >
+                <h2 style={{ textAlign: "center", marginBottom: "10px" }}>Register Account</h2>
                 <Row justify={"center"}>
                     <Col xs={24} md={8}>
                         <Form.Item
@@ -105,20 +106,27 @@ const RegisterPage = () => {
                     </Col>
                 </Row>
                 <Row justify={"center"}>
-                    <Button type="primary" onClick={() => form.submit()}>
-                        Register
-                    </Button>
-                    <Button style={{ marginLeft: "10px" }}
-                        onClick={() => {
-                            form.setFieldsValue({
-                                fullName: "name test 1",
-                                email: "testdemo@gmail.com",
-                                password: 123456789,
-                                phone: 66778899
-                            })
-                        }}>
-                        Test
-                    </Button>
+                    <Col xs={24} md={8}>
+                        <Button type="primary" onClick={() => form.submit()}>
+                            Register
+                        </Button>
+                        <Button style={{ marginLeft: "10px" }}
+                            onClick={() => {
+                                form.setFieldsValue({
+                                    fullName: "name test 1",
+                                    email: "testdemo@gmail.com",
+                                    password: 123456789,
+                                    phone: 66778899
+                                })
+                            }}>
+                            Test
+                        </Button>
+                        <Divider />
+                        <div>
+                            Available account?
+                            <Link to={"/login"}> Login here!</Link>
+                        </div>
+                    </Col>
                 </Row>
 
             </Form>
