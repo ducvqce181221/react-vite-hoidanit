@@ -1,13 +1,31 @@
 import { HomeFilled, LockOutlined, MailOutlined } from "@ant-design/icons";
-import { Button, Col, Divider, Flex, Form, Input, Row } from "antd";
-import { Link } from "react-router-dom";
+import { Button, Col, Divider, Flex, Form, Input, message, notification, Row } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import { loginAPI } from "../services/api.service";
+import { useState } from "react";
 
 const LoginPage = () => {
     const [form] = Form.useForm();
+    const [confirmLoading, setConfirmLoading] = useState(false);
+    const navigate = useNavigate();
+    const timeLoading = 2000;
 
     const onFinish = async (values) => {
-        console.log(">>>values: ", values)
+        setConfirmLoading(true);
+        setTimeout(async () => {
+            const res = await loginAPI(values.email, values.password, timeLoading);
 
+            if (res.data) {
+                message.success("Login success!");
+                navigate("/");
+            } else {
+                notification.error({
+                    message: "Error login!",
+                    description: res.message
+                })
+            }
+            setConfirmLoading(false);
+        }, timeLoading);
     }
 
     return (
@@ -42,9 +60,13 @@ const LoginPage = () => {
                                                 required: true,
                                                 message: 'Please input your email!',
                                             },
+                                            {
+                                                type: "email",
+                                                message: 'Wrong format!',
+                                            },
                                         ]}
                                     >
-                                        <Input prefix={<MailOutlined />} placeholder="Enter your email" />
+                                        <Input prefix={<MailOutlined style={{ paddingRight: "5px" }} />} placeholder="Enter your email" />
                                     </Form.Item>
                                 </Col>
                             </Row>
@@ -61,7 +83,7 @@ const LoginPage = () => {
                                             },
                                         ]}
                                     >
-                                        <Input.Password prefix={<LockOutlined />} placeholder="Enter your password" />
+                                        <Input.Password prefix={<LockOutlined style={{ paddingRight: "5px" }} />} placeholder="Enter your password" />
                                     </Form.Item>
                                 </Col>
                             </Row>
@@ -69,7 +91,11 @@ const LoginPage = () => {
                             <Row justify={"center"}>
                                 <Col xs={6} md={5}>
                                     <Form.Item>
-                                        <Button block type="primary" htmlType="submit">
+                                        <Button
+                                            block type="primary"
+                                            htmlType="submit"
+                                            loading={confirmLoading}
+                                        >
                                             Log in
                                         </Button>
                                     </Form.Item>
