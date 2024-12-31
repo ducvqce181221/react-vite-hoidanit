@@ -87,7 +87,10 @@ const LoginPage = () => {
                                             },
                                         ]}
                                     >
-                                        <Input.Password prefix={<LockOutlined style={{ paddingRight: "5px" }} />} placeholder="Enter your password" />
+                                        <Input.Password
+                                            prefix={<LockOutlined style={{ paddingRight: "5px" }} />}
+                                            placeholder="Enter your password"
+                                        />
                                     </Form.Item>
                                 </Col>
                             </Row>

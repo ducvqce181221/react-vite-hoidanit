@@ -1,14 +1,31 @@
-import { Link, NavLink } from 'react-router-dom';
-import { Menu } from 'antd';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Button, Menu } from 'antd';
 import { BookOutlined, HomeOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/auth.context';
 
 
 const Header = () => {
     const [current, setCurrent] = useState('');
+    const { user, setUser } = useContext(AuthContext);
+    const navigate = useNavigate();
 
-    const { user } = useContext(AuthContext);
+    // useEffect(() => {
+    //     if (!user.fullName) {
+    //         navigate("/login");
+    //     }
+    // }, [user, navigate]);
+
+    const resetUserAfterLogout = () => {
+        setUser({
+            email: "",
+            phone: "",
+            fullName: "",
+            role: "",
+            avatar: "",
+            id: ""
+        });
+    }
 
     console.log("check user: ", user)
 
@@ -33,21 +50,36 @@ const Header = () => {
             key: 'books',
             icon: <BookOutlined />,
         },
-        {
-            label: "Options",
-            key: 'options',
-            icon: <SettingOutlined />,
-            children: [
-                {
-                    label: <Link to={"/login"}>Login</Link>,
-                    key: 'login',
-                },
-                {
-                    label: <Link to={"/register"}>Register</Link>,
-                    key: 'register',
-                },
-            ],
-        },
+        ...(!user.id ? [
+            {
+                label: "Options",
+                key: 'options',
+                icon: <SettingOutlined />,
+                children: [
+                    {
+                        label: <Link to={"/login"}>Login</Link>,
+                        key: 'login',
+                    },
+                    {
+                        label: <Link to={"/register"}>Register</Link>,
+                        key: 'register',
+                    },
+                ],
+            },
+        ] : [
+            {
+                label: `Welcome ${user.fullName}!`,
+                key: 'welcome',
+                icon: <SettingOutlined />,
+                children: [
+                    {
+                        label: <div onClick={resetUserAfterLogout}>Log Out</div>,
+                        key: 'logOut',
+                    },
+                ],
+            },
+        ])
+
     ]
 
     return (
