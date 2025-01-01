@@ -5,10 +5,11 @@ import { Outlet } from "react-router-dom";
 import { getAccountAPI } from "./services/api.service";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "./components/context/auth.context";
+import { Spin } from "antd";
 
 
 const App = () => {
-  const { setUser } = useContext(AuthContext);
+  const { setUser, isAppLoading, setIsAppLoading } = useContext(AuthContext);
 
   useEffect(() => {
     fetchUserInfo();
@@ -18,15 +19,29 @@ const App = () => {
     const res = await getAccountAPI();
     if (res.data) {
       setUser(res.data.user);
-      console.log("check user data: ", res.data)
+      // console.log("check user data: ", res.data);
     }
+    setIsAppLoading(false);
   }
 
   return (
     <>
-      <Header />
-      <Outlet />
-      <Footer />
+      {isAppLoading === true ?
+        <div style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+        }}>
+          <Spin />
+        </div>
+        :
+        <>
+          <Header />
+          <Outlet />
+          <Footer />
+        </>
+
+      }
     </>
   );
 }
