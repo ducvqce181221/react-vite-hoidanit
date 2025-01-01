@@ -1,6 +1,6 @@
 import { Button, Drawer, notification } from 'antd';
 import { useState } from 'react';
-import { handleUploadFile, updateUserAvatarAPI } from '../../services/api.service';
+import { handleUploadFile, updateUserAvatarAPI } from '../../services/user.api.service';
 
 const ViewUserDetail = (props) => {
 

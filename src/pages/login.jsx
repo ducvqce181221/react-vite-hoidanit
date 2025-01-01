@@ -1,7 +1,7 @@
 import { HomeFilled, LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Col, Divider, Flex, Form, Input, message, notification, Row } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import { loginAPI } from "../services/api.service";
+import { loginAPI } from "../services/user.api.service";
 import { useContext, useState } from "react";
 import { AuthContext } from "../components/context/auth.context";
 

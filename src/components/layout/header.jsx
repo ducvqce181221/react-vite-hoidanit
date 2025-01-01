@@ -3,7 +3,7 @@ import { Button, Menu, message } from 'antd';
 import { BookOutlined, HomeOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/auth.context';
-import { logoutAPI } from '../../services/api.service';
+import { logoutAPI } from '../../services/user.api.service';
 
 
 const Header = () => {

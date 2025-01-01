@@ -1,5 +1,5 @@
 import { Button, Col, Divider, Form, Input, notification, Row } from "antd";
-import { registerUserAPI } from "../services/api.service";
+import { registerUserAPI } from "../services/user.api.service";
 import { Link, useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {

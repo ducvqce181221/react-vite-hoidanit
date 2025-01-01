@@ -1,6 +1,6 @@
 import UserForm from "../components/user/user.form";
 import UserTable from "../components/user/user.table";
-import { fetchAllUserAPI } from '../services/api.service';
+import { fetchAllUserAPI } from '../services/user.api.service';
 import { useEffect, useState } from 'react';
 
 const UsersPage = () => {
