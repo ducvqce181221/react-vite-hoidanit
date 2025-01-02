@@ -98,6 +98,7 @@ const ViewUserDetail = (props) => {
                         </label>
                         <input type="file" hidden id='btnUpload'
                             onChange={(event) => handleOnChangeFile(event)}
+                            onClick={(event) => event.target.value = null}
                         />
                     </div>
                     {preview &&
