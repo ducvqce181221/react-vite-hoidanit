@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import BookCreate from "../components/book/book.create.controller";
 import BookTable from "../components/book/book.table";
 import { fetchAllBookAPI } from "../services/book.api.service";
+import BookCreateUncontroller from "../components/book/book.create.uncontroller";
 
 
 const BookPage = () => {
@@ -27,7 +28,10 @@ const BookPage = () => {
 
     return (
         <div style={{ padding: "0 20px" }}>
-            <BookCreate
+            {/* <BookCreate
+                loadAllBook={loadAllBook}
+            /> */}
+            <BookCreateUncontroller
                 loadAllBook={loadAllBook}
             />
             <BookTable
@@ -37,6 +41,7 @@ const BookPage = () => {
                 pageSize={pageSize}
                 setPageSize={setPageSize}
                 total={total}
+                loadAllBook={loadAllBook}
             />
         </div>
 
