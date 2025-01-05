@@ -1,5 +1,5 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { Button, Menu, message } from 'antd';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Menu, message } from 'antd';
 import { BookOutlined, HomeOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/auth.context';
@@ -10,7 +10,19 @@ const Header = () => {
     const [current, setCurrent] = useState('');
     const { user, setUser } = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
 
+    useEffect(() => {
+        if (location.pathname) {
+            const allRoutes = ["users", "books"];
+            const currentRoute = allRoutes.find(items => `/${items}` === location.pathname);
+            if (currentRoute) {
+                setCurrent(currentRoute);
+            } else {
+                setCurrent("home");
+            }
+        }
+    }, [location]);
 
     const logout = async () => {
         const res = await logoutAPI();

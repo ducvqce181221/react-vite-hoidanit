@@ -12,6 +12,7 @@ const BookCreateUncontroller = (props) => {
     const [form] = Form.useForm();
 
     const { loadAllBook } = props;
+    const [loadingModal, setLoadingModal] = useState(false);
 
     const onFinish = async (values) => {
         console.log(">>> values: ", values);
@@ -70,6 +71,7 @@ const BookCreateUncontroller = (props) => {
         }, 100);
     }
 
+
     return (
         <div style={{
             display: "flex",
@@ -78,7 +80,13 @@ const BookCreateUncontroller = (props) => {
         }}>
             <h3>Table Book</h3>
             <Button type="primary"
-                onClick={() => { setIsModalOpen(true) }}
+                onClick={() => {
+                    setIsModalOpen(true);
+                    setLoadingModal(true);
+                    setTimeout(() => {
+                        setLoadingModal(false);
+                    }, 250);
+                }}
             >
                 Create book
             </Button>
@@ -89,6 +97,7 @@ const BookCreateUncontroller = (props) => {
                 onCancel={resetAndClose}
                 maskClosable={false}
                 okText={"Create"}
+                loading={loadingModal}
             >
                 <Form
                     form={form}

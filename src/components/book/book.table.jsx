@@ -8,7 +8,10 @@ import { deleteBookAPI } from '../../services/book.api.service';
 
 
 const BookTable = (props) => {
-    const { dataBook, current, setCurrent, pageSize, setPageSize, total, loadAllBook } = props;
+    const { dataBook, current, setCurrent, loadAllBook,
+        pageSize, setPageSize, total,
+        loadingTable } = props;
+
     const [openDrawer, setOpenDrawer] = useState(false);
     const [dataBookDetail, setDataBookDetail] = useState("");
     const [dataBookUpdate, setDataBookUpdate] = useState("");
@@ -39,7 +42,6 @@ const BookTable = (props) => {
             }, 2000);
         });
     }
-
 
     const columns = [
         {
@@ -148,6 +150,11 @@ const BookTable = (props) => {
                     }
                 }}
                 onChange={onChange}
+                loading={{
+                    size: 'large',
+                    spinning: loadingTable,
+                    // tip: "Loading..."
+                }}
             />
             <ViewBookDetail
                 openDrawer={openDrawer}
